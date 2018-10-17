@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using VismaUtvikler.Models;
+using VismaUtvikler.ViewModels;
 
 namespace VismaUtvikler.Controllers
 {
@@ -54,7 +55,9 @@ namespace VismaUtvikler.Controllers
 
         // GET: Customers/Create
         public ActionResult Create()
+
         {
+            
             return View();
         }
 
@@ -74,6 +77,7 @@ namespace VismaUtvikler.Controllers
 
             return View(customer);
         }
+
 
         // GET: Customers/Edit/5
         public ActionResult Edit(int? id)
@@ -139,6 +143,18 @@ namespace VismaUtvikler.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        ////Min action
+        public ActionResult New()
+        {
+            var CustomerTypes = db.CustomerTypes.ToList();
+            var NewCustomerviewModel = new CustomerViewModel
+            {
+                CustomerTypes = CustomerTypes
+            };
+            return View(NewCustomerviewModel);
         }
     }
 }

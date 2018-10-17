@@ -34,6 +34,8 @@ namespace VismaUtvikler.Models
 
         public virtual List<CustomerContactPerson> ContactPersons { get; set; }
         public virtual List<CustomerType> CustomerTypes { get; set; }
+        [Display(Name = "Kunde type")]
+        public int CustomerTypeId { get; set; }
 
     }
 }

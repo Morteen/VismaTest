@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201810171637383_populate_ContactPersonsTry_two.Designer.cs">
       <DependentUpon>201810171637383_populate_ContactPersonsTry_two.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810171955338_alterd_CustomerClass.cs" />
+    <Compile Include="Migrations\201810171955338_alterd_CustomerClass.Designer.cs">
+      <DependentUpon>201810171955338_alterd_CustomerClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -302,7 +306,7 @@
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
-    <Content Include="Views\Customers\Test.cshtml" />
+    <Content Include="Views\Customers\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -333,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810171637383_populate_ContactPersonsTry_two.resx">
       <DependentUpon>201810171637383_populate_ContactPersonsTry_two.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810171955338_alterd_CustomerClass.resx">
+      <DependentUpon>201810171955338_alterd_CustomerClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
