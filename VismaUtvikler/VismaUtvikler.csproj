@@ -209,6 +209,14 @@
     <Compile Include="Migrations\201810171545428_added_Customer_Classes.Designer.cs">
       <DependentUpon>201810171545428_added_Customer_Classes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810171547309_populate_CustomerTypes.cs" />
+    <Compile Include="Migrations\201810171547309_populate_CustomerTypes.Designer.cs">
+      <DependentUpon>201810171547309_populate_CustomerTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810171608190_populate_ContactPersons.cs" />
+    <Compile Include="Migrations\201810171608190_populate_ContactPersons.Designer.cs">
+      <DependentUpon>201810171608190_populate_ContactPersons.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -219,6 +227,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CustomerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-journal.css" />
@@ -297,6 +306,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810171545428_added_Customer_Classes.resx">
       <DependentUpon>201810171545428_added_Customer_Classes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810171547309_populate_CustomerTypes.resx">
+      <DependentUpon>201810171547309_populate_CustomerTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810171608190_populate_ContactPersons.resx">
+      <DependentUpon>201810171608190_populate_ContactPersons.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
