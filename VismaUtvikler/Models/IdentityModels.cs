@@ -20,6 +20,10 @@ namespace VismaUtvikler.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerContactPerson> ContactPersons { get; set; }
+        public DbSet<CustomerType> CustomerTypes{ get; set; }
+        public DbSet<CustomerToType> CustomerToTypes { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
