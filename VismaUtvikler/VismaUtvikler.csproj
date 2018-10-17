@@ -217,6 +217,14 @@
     <Compile Include="Migrations\201810171608190_populate_ContactPersons.Designer.cs">
       <DependentUpon>201810171608190_populate_ContactPersons.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810171626238_populate_customers.cs" />
+    <Compile Include="Migrations\201810171626238_populate_customers.Designer.cs">
+      <DependentUpon>201810171626238_populate_customers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810171637383_populate_ContactPersonsTry_two.cs" />
+    <Compile Include="Migrations\201810171637383_populate_ContactPersonsTry_two.Designer.cs">
+      <DependentUpon>201810171637383_populate_ContactPersonsTry_two.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -312,6 +320,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810171608190_populate_ContactPersons.resx">
       <DependentUpon>201810171608190_populate_ContactPersons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810171626238_populate_customers.resx">
+      <DependentUpon>201810171626238_populate_customers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810171637383_populate_ContactPersonsTry_two.resx">
+      <DependentUpon>201810171637383_populate_ContactPersonsTry_two.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
