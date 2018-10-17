@@ -9,6 +9,7 @@
 <div>
     <h4>Customer</h4>
     <hr />
+   
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.FirmName)
@@ -60,6 +61,29 @@
 
     </dl>
 </div>
+<h4>Kontakt Personer</h4>
+<table class="table table-sm">
+    <thead>
+    <tr>
+        <th>Fornavn</th>
+        <th>Etternavn</th>
+        <th>telefon nummer</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var cp in Model.ContactPersons)
+    {
+       
+        <tr>
+        <th>@cp.FirstName</th>
+        <th>@cp.lastName</th>
+    <th>@cp.PhoneNumber</th>
+        </tr>
+
+    }
+        </tbody>
+</table>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

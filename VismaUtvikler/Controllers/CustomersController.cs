@@ -21,6 +21,21 @@ namespace VismaUtvikler.Controllers
         }
 
         // GET: Customers/Details/5
+        /*public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(customer);
+        }*/
+        // GET: Customers/Details/5
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -28,6 +43,8 @@ namespace VismaUtvikler.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Customer customer = db.Customers.Find(id);
+            List <CustomerContactPerson> contactPersons = db.ContactPersons.ToList();
+            customer.ContactPersons = contactPersons.Where(i => i.CustomerId == customer.Id).ToList();
             if (customer == null)
             {
                 return HttpNotFound();
