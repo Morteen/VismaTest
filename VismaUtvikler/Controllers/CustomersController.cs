@@ -50,6 +50,40 @@ namespace VismaUtvikler.Controllers
 
 
 
+       ///Get
+        public ActionResult NyKontakt(int? id)
+       {
+
+
+           var ViewModel = new CustomerViewModel();
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,"KOMMER BARE HIT");
+            }
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound("hEI HEI");
+            }
+
+           ViewModel.Customer = customer;
+            return View(ViewModel);
+
+          
+        }
+
+        [HttpPost, ActionName("NyKontakt")]
+       
+        public ActionResult NyKontakt(int id,CustomerContactPerson contactPerson)
+        {
+            Customer customer = db.Customers.Find(id);
+            contactPerson.CustomerId = id;
+            customer.ContactPersons.Add(contactPerson);
+            db.Entry(customer).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index","Customers");
+        }
 
 
 
@@ -58,7 +92,7 @@ namespace VismaUtvikler.Controllers
 
 
 
-        
+
 
         public ActionResult Details(int? id)
         {

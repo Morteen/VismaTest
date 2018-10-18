@@ -1,0 +1,66 @@
+﻿@model VismaUtvikler.ViewModels.CustomerViewModel
+@{
+    ViewBag.Title = "NyKontakt";
+}
+
+<h2>NyKontakt</h2>
+
+@using (Html.BeginForm("NyKontakt","Customers"))
+{
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-lg-8 col-sm-8">
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ContactPerson.FirstName)
+                    @Html.TextBoxFor(m => m.ContactPerson.FirstName, new { @class = "form-control" })
+
+                </div>@*formgrup*@
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-lg-3 col-sm-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ContactPerson.lastName)
+                    @Html.TextBoxFor(m => m.ContactPerson.lastName, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ContactPerson.Adress)
+                    @Html.TextBoxFor(m => m.ContactPerson.Adress, new {@class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-lg-3 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ContactPerson.PostalCode)
+                    @Html.TextBoxFor(m => m.ContactPerson.PostalCode, new {@class = "form-control" })
+                </div>
+            </div>
+
+            
+            <div class="col-md-3 col-lg-3 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ContactPerson.MailAdress)
+                    @Html.TextBoxFor(m => m.ContactPerson.MailAdress, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ContactPerson.PhoneNumber)
+                    @Html.TextBoxFor(m => m.ContactPerson.PhoneNumber, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(m=>m.Customer.Id)
+    <button type="submit" class="btn btn-primary">Lagre</button>
+}

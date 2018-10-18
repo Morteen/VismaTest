@@ -9,6 +9,8 @@ namespace VismaUtvikler.ViewModels
     public class CustomerViewModel
     {
         public Customer  Customer { get; set; }
+        public CustomerContactPerson ContactPerson { get; set; }
+
         public List<CustomerContactPerson> ContactPersons { get; set; }
         public IEnumerable<CustomerType> CustomerTypes { get; set; }
         public List<CustomerToType> CustomerToTypes { get; set; }
