@@ -1,0 +1,67 @@
+﻿@model VismaUtvikler.Models.Customer
+@{
+    ViewBag.Title = "Legg til kunde";
+}
+
+<h2>Legg til Kunde</h2>
+@using (Html.BeginForm("lagKunde", "Customers"))
+{
+
+    
+
+     
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-lg-8 col-sm-8">
+                    
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FirmName)
+                    @Html.TextBoxFor(m => m.FirmName, new {@class = "form-control"})
+           
+                </div>@*formgrup*@
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-lg-3 col-sm-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Adress)
+                    @Html.TextBoxFor(m => m.Adress, new { @class = "form-control" })
+                </div>
+            </div>
+           
+            <div class="col-md-3 col-lg-3 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PostalCode)
+                    @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-lg-3 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PhoneNumber)
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FaxNumber)
+                    @Html.TextBoxFor(m => m.FaxNumber, new {@class = "form-control"})
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MailAdress)
+                    @Html.TextBoxFor(m => m.MailAdress, new {@class = "form-control"})
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Lagre</button>
+}
+
+
+
+
+

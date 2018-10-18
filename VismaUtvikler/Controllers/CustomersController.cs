@@ -21,21 +21,44 @@ namespace VismaUtvikler.Controllers
             return View(db.Customers.ToList());
         }
 
-        // GET: Customers/Details/5
-        /*public ActionResult Details(int? id)
+
+
+
+
+
+
+
+        public ActionResult addCustomer()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customer customer = db.Customers.Find(id);
+            //db.Customers.Add(customer);
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult lagKunde(Customer customer)
+        {
             if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
-        }*/
-        // GET: Customers/Details/5
+            db.Customers.Add(customer);
+            db.SaveChanges();
+
+            return RedirectToAction("Index","Customers");
+        }
+
+
+
+
+
+
+
+
+
+
+
+        
 
         public ActionResult Details(int? id)
         {
@@ -52,6 +75,7 @@ namespace VismaUtvikler.Controllers
             }
             return View(customer);
         }
+
 
         // GET: Customers/Create
         public ActionResult Create()
