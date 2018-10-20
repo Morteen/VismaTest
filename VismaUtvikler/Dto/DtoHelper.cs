@@ -9,7 +9,7 @@ namespace VismaUtvikler.Dto
     public class DtoHelper
     {
 
-
+        ///////Customer//////////
 
         /// <summary>
         /// mapper en Customer til en Dto Customer for å lettere overføre klassen til web
@@ -72,7 +72,7 @@ namespace VismaUtvikler.Dto
 
 
 
-
+        ///////////////////ContactPerson//////////////////////////
 
         /// <summary>
         /// Mapper en CustomerContactperson over i en contactPersonDto for
@@ -80,7 +80,7 @@ namespace VismaUtvikler.Dto
         /// <param name="contactPerson"></param>
         /// <returns></returns>
 
-        private static ContactPersonDto MapContactPersonToDtoPerson(CustomerContactPerson contactPerson)
+      public static ContactPersonDto MapContactPersonToDtoPerson(CustomerContactPerson contactPerson)
         {
 
             var dtoContact = new ContactPersonDto()
@@ -88,6 +88,7 @@ namespace VismaUtvikler.Dto
 
                 Id = contactPerson.Id,
                 FirstName = contactPerson.FirstName,
+                lastName = contactPerson.lastName,
                 Adress = contactPerson.Adress,
                 PhoneNumber = contactPerson.PhoneNumber,
                MailAdress = contactPerson.MailAdress,
@@ -109,7 +110,7 @@ namespace VismaUtvikler.Dto
         /// <returns></returns>
 
 
-        private static List<ContactPersonDto> MapContList(List<CustomerContactPerson> contactPersons)
+        public static List<ContactPersonDto> MapContList(List<CustomerContactPerson> contactPersons)
         {
             List<ContactPersonDto> dtoList = new List<ContactPersonDto>();
 
@@ -126,7 +127,32 @@ namespace VismaUtvikler.Dto
             return dtoList;
 
         }
+        ////////////////////////CustomerType///////////
+        public static CustomerTypeDto MapTypeToTypeDto(CustomerType customerType)
+        {
+            var dtoType = new CustomerTypeDto()
+            { CustomerTypeName= customerType.CustomerTypeName,
+                Description= customerType.Description
+            };
+            return dtoType;
+        }
 
+        public static List<CustomerTypeDto> MapTypeListToDtoList(List<CustomerType> customerTypes)
+        {
+            var dtoList = new List<CustomerTypeDto>();
+            
+            foreach (var type in customerTypes)
+            {
+                dtoList.Add(MapTypeToTypeDto(type));
+
+            }
+
+            
+
+
+
+            return dtoList;
+        }
 
     }
 }
