@@ -6,6 +6,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using VismaUtvikler.Models;
+using VismaUtvikler.ViewModels;
+using System.Web.Script.Serialization;
+using VismaUtvikler.Dto;
 
 namespace VismaUtvikler.Controllers.Api
 {
@@ -20,20 +23,34 @@ namespace VismaUtvikler.Controllers.Api
             _context= new ApplicationDbContext();
         }
         //GET /api/customers
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<CustomerDto> GetCustomers()
         {
-            return _context.Customers.ToList();
+          var customers= _context.Customers.ToList();
+
+
+
+            List<CustomerDto> dtoCustomerList = DtoHelper.MapCustomerListToDto(customers);
+
+
+
+            if (dtoCustomerList.Count()==0)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            return dtoCustomerList;
+
+
+
         }
 
 
         //Get /api/customer/1
-        public Customer GetCustomer(int Id)
+        public CustomerDto GetCustomer(int Id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == Id);
-            if(customer==null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+            var dtoCustomer = DtoHelper.MapCustomerToDtoCustomer(customer);
 
-            return customer;
+
+            return dtoCustomer;
         }
 
 
