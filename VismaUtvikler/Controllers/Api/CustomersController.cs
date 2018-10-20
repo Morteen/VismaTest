@@ -57,13 +57,14 @@ namespace VismaUtvikler.Controllers.Api
 
         //Post /api/customers
         [HttpPost]
-        public Customer CreateCustomer(Customer customer)
+        public IHttpActionResult CreateCustomer(CustomerDto dtoCustomer)
         {
+            var customer = DtoHelper.MapDtoCustomerToCustomer(dtoCustomer);
             if(!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+               return BadRequest();
             _context.Customers.Add(customer);
             _context.SaveChanges();
-            return customer;
+            return Created(new Uri(Request.RequestUri +"/"+customer.Id), dtoCustomer);
         }
 
 

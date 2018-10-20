@@ -69,7 +69,22 @@ namespace VismaUtvikler.Dto
             return dtoCustomerList;
         }
 
+        public static Customer MapDtoCustomerToCustomer(CustomerDto dtoCustomer)
+        {
+            return  new Customer()
+            {
 
+                FirmName = dtoCustomer.FirmName,
+                Adress = dtoCustomer.Adress,
+                PhoneNumber = dtoCustomer.PhoneNumber,
+                FaxNumber = dtoCustomer.FaxNumber,
+                MailAdress = dtoCustomer.MailAdress,
+                PostalCode = dtoCustomer.PostalCode
+
+            };
+            
+
+        }
 
 
         ///////////////////ContactPerson//////////////////////////
