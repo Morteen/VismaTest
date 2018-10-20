@@ -88,14 +88,15 @@ namespace VismaUtvikler.Controllers.Api
 
         //DELETE /api/customers/1
         [HttpDelete]
-        public void DeleteCustomer(int Id)
+        public IHttpActionResult DeleteCustomer(int Id)
         {
             var customer = _context.Customers.Find(Id);
-            if(customer==null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-
+            if (customer == null)
+                return BadRequest();
             _context.Customers.Remove(customer);
             _context.SaveChanges();
+            
+            return Ok("Slettet");
         }
     }
 }
