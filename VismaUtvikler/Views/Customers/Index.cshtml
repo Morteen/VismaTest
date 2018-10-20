@@ -10,61 +10,53 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table id="customers" class="table table-condensed">
+    <thead>
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirmName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Adress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FaxNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MailAdress)
-        </th>
+        <th>Firmanavn</th>
+        <th>Adresse</th>
+        <th>Postnummer</th>
+        <th>Telefon</th>
+        <th> Fax</th>
+        <th>Mail</th>
         <th></th>
     </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.FirmName
+                </td>
+                <td>
+                    @item.Adress
+                </td>
+                <td>
+                    @item.PostalCode
+                </td>
+                <td>
+                    @item.PhoneNumber
+                </td>
+                <td>
+                    @item.FaxNumber
+                </td>
+                <td>
+                    @item.MailAdress
+                </td>
+                <td>
 
-@foreach (var item in Model) {
-    <tr >
-        <td>
-            @item.FirmName
-        </td>
-        <td>
-            @item.Adress
-        </td>
-        <td>
-            @item.PostalCode
-        </td>
-        <td>
-            @item.PhoneNumber
-        </td>
-        <td>
-            @item.FaxNumber
-        </td>
-        <td>
-            @item.MailAdress
-        </td>
-        <td>
 
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
 
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    <button data-customer-id="@item.Id" class="btn btn-link js-delete">Delete  @item.Id</button>
 
-            <button data-customer-id="@item.Id" class="btn btn-link js-delete">Delete  @item.Id</button>
-        
-            @Html.ActionLink("legg til Kontakt", "NyKontakt", new { id = item.Id })
-        </td>
-        
-    </tr>
-}
+                    @Html.ActionLink("legg til Kontakt", "NyKontakt", new { id = item.Id })
+                </td>
+
+            </tr>
+        }
+    </tbody>
 
 </table>
 
@@ -72,10 +64,12 @@
 @section scripts{
     
     <script>
-        $(document).ready(function() {
-            $("#customers ").on("click",".js-delete",function () {
-                var button = $(this);
+        $(document).ready(function () {
 
+            $("#customers").DataTable();
+
+            $("#customers").on("click",".js-delete",function () {
+                var button = $(this);
                 //bootbx confirm er et alternativ til vanlig confirmbox
                 bootbox.confirm("Er du sikker på at du vil slette denne kunden?", function(result) {
                     if (result) {
