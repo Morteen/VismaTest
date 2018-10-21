@@ -6,11 +6,18 @@
 
 <h2>Kundeoversikt</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<input type="text" name="search" id="search"placeholder="Finn kunder"/>
+     
+                 @Html.ActionLink("Legg til kunde", "addCustomer")
+      
+       
+            <div id="customerSearchBox"class="form-group" style="float:right">
+                <input type="text" name="search" id="search"class = "form-control"placeholder="Finn kunder"/>
+             </div>
+        
+   
+
 <div id="content">
+
     <table id="customers" class="table table-condensed table-hover">
         <thead>
         <tr>
@@ -20,13 +27,13 @@
             <th>Telefon</th>
             <th> Fax</th>
             <th>Mail</th>
-            <th></th>
-            <th></th>
-      
+           <th>Edit |<span class='glyphicon glyphicon-trash'></span>|Details </th>
+          
+
         </tr>
         </thead>
         <tbody id="result">
-        
+
         </tbody>
 
     </table>
@@ -49,10 +56,13 @@
             responsedata = data;
                     console.log(data);
                     $.map(data, function (post, i) {
-                        $("#result").append("<tr><td>" + post.FirmName + "</td>" + "<td>" + post.Adress + "</td><td>" + post.PostalCode + "</td><td>" + post.PhoneNumber + "</td><td>" + post.FaxNumber + "</td><td>" + post.MailAdress +
-                            "</td>" +
-                            "<td><a href='/customers/details/" + post.Id +"'>Kunde detaljer</a>" +
-                            "<button class='btn-link js-delete' data-customer-id=" + post.Id + ">| Slett kunde |</button> </td><td><button class='btn-link js-detail' data-customer-id=>Hei</button></td></tr>"
+                        $("#result").append(
+                            "<tr class='clickable-row' data-href='#'>" +
+                       
+                            "<td>" + post.FirmName + "</td>"
+                            + "<td>" + post.Adress + "</td><td>" + post.PostalCode + "</td><td>" + post.PhoneNumber + "</td><td>" + post.FaxNumber + "</td><td>" + post.MailAdress + "</td>" +
+                           "<td><a href='/customers/Edit/" + post.Id + "'> <span class='glyphicon glyphicon-pencil'></span></a><button class='btn-link js-delete' data-customer-id=" + post.Id + ">| <span class='glyphicon glyphicon-trash'></span>|</button><a href='/customers/Details/" + post.Id + "'>Details </a></button> </td>" +
+                            " </tr>" 
                       
                         )
                   })
@@ -82,7 +92,7 @@
             $("#search").keyup(function() {
                 //tømmer result tabel for innhold
                 $("#result").html('');
-                //plasserer verdien i søkefeltet i searchField variablen
+                //plasserer verdien i søkefeltet i searchField variablen       |</button><a href='/customers/Details/" + post.Id + "'>Details </a></button>
                 var searchField = $("#search").val();
                 console.log(searchField);
                 //lager en regular expressin variable
@@ -96,11 +106,23 @@
                             $("#result").append("<tr><td>" + value.FirmName + "</td>" +
                                 "<td>" + value.Adress + "</td><td>" + value.PostalCode + "</td>" +
                                 "<td>" + value.PhoneNumber + "</td><td>" + value.FaxNumber + "</td>" +
-                                "<td>" + value.MailAdress + "</td> <td><a href='/customers/details/" + value.Id +"'>Kunde detaljer</a>" +
+                                "<td>" + value.MailAdress + "</td> <td>" +
+                                "<a href='/customers/Edit/" + value.Id + "'><span class='glyphicon glyphicon-pencil'></span> " +
+                                "|</a><button class='btn-link js-delete' data-customer-id=" + value.Id +
+                                ">| <span class='glyphicon glyphicon-trash'></span>  |</button>" +
+                                "<a href='/customers/Details/" + value.Id + "'>Details " +
                                 "</tr>")
                         }
                     })
                 
+            });
+
+
+
+            ////Lager tabelrow til linker
+            $("#customers").on('click-row.bs.table', function (e, row, $element) {
+                alert("")
+                window.location = $element.data('href');
             });
         });
     </script>

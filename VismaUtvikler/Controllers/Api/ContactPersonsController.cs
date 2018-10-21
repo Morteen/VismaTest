@@ -33,17 +33,18 @@ namespace VismaUtvikler.Controllers.Api
 
         // Finner  en contact person
         //Get /api/ContactPersons/1
-        public ContactPersonDto GetContactPerson(int Id)
+       
+        public IEnumerable<ContactPersonDto> GetContactPerson(int Id)
         {
-            var contact= _context.ContactPersons.SingleOrDefault(c => c.Id == Id);
-            if(contact==null)
+            var contact = _context.ContactPersons.Where(c => c.CustomerId==Id).ToList();
+            if (contact == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
 
-            var dtoContact = DtoHelper.MapContactPersonToDtoPerson(contact);
+            var dtoContacts = DtoHelper.MapContList(contact);
 
 
-            return dtoContact;
+            return dtoContacts;
         }
 
     }
