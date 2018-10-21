@@ -18,7 +18,7 @@ namespace VismaUtvikler.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View();
         }
 
 
