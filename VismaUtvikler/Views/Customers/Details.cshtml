@@ -1,23 +1,19 @@
 ﻿@model VismaUtvikler.Models.Customer
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.FirmName;
 }
 
-<h2>Details</h2>
-
+<h3>Firma opplysninger for <br /> @Model.FirmName</h3>
+<hr />
 <div>
-    <h4>Customer</h4>
-    <hr />
+   
+   
    
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirmName)
-        </dt>
+       
 
-        <dd>
-            @Html.DisplayFor(model => model.FirmName)
-        </dd>
+        
 
         <dt>
             @Html.DisplayNameFor(model => model.Adress)
@@ -189,14 +185,14 @@
                 $.each(responsedata,
                     function (key, value) {
                         console.log("Logg fra search value",value)
-                        if ( value.FirstName.search(expression) != -1||value.MailAdress.search(expression)!=-1 (value.lastName.search(expression) != -1)) {
+                        if (value.FirstName.search(expression) != -1 || value.lastName.search(expression) != -1 || value.MailAdress.search(expression) != -1 || value.Adress.search(expression) != -1) {
                             $("#result").append("<tr><td>" + value.FirstName+" "+value.lastName+ "</td>" +
                                 "<td>" + value.Adress + "</td><td>" + value.PostalCode + "</td>" +
                                 "<td>" + value.PhoneNumber + "</td> " +
                                 "<td>" + value.MailAdress + "</td> <td>" +
                                 "<a href='/CustomerContactPersons/Edit/" + value.Id + "'><span class='glyphicon glyphicon-pencil'></span> " +
-                                "|</a><button class='btn-link js-delete' data-customer-id=" + value.Id +
-                                ">| <span class='glyphicon glyphicon-trash'></span>  |</button>" +
+                                "</a><button class='btn-link js-delete' data-customer-id=" + value.Id +
+                                ">| <span class='glyphicon glyphicon-trash'></span></button>" +
                               
                                 "</tr>")
                         }
