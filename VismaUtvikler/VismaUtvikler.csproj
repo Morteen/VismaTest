@@ -243,7 +243,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\ContactPersonsController.cs" />
     <Compile Include="Controllers\Api\CustomersController.cs" />
+    <Compile Include="Controllers\Api\CustomerToTypesController.cs" />
+    <Compile Include="Controllers\CustomerContactPersonsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\CustomerToTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dto\ContactPersonDto.cs" />
@@ -280,6 +283,22 @@
     <Compile Include="Migrations\201810171955338_alterd_CustomerClass.cs" />
     <Compile Include="Migrations\201810171955338_alterd_CustomerClass.Designer.cs">
       <DependentUpon>201810171955338_alterd_CustomerClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810221638012_customerToType_list.cs" />
+    <Compile Include="Migrations\201810221638012_customerToType_list.Designer.cs">
+      <DependentUpon>201810221638012_customerToType_list.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810221642417_cupdated_CustomerToType_model.cs" />
+    <Compile Include="Migrations\201810221642417_cupdated_CustomerToType_model.Designer.cs">
+      <DependentUpon>201810221642417_cupdated_CustomerToType_model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810221659260_removed_CType_refrence_in_Customer_model.cs" />
+    <Compile Include="Migrations\201810221659260_removed_CType_refrence_in_Customer_model.Designer.cs">
+      <DependentUpon>201810221659260_removed_CType_refrence_in_Customer_model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810221701403_removed_Customer_refrence_in_CustomerType_model.cs" />
+    <Compile Include="Migrations\201810221701403_removed_Customer_refrence_in_CustomerType_model.Designer.cs">
+      <DependentUpon>201810221701403_removed_Customer_refrence_in_CustomerType_model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -536,6 +555,12 @@
     <Content Include="Views\Customers\New.cshtml" />
     <Content Include="Views\Customers\addCustomer.cshtml" />
     <Content Include="Views\Customers\NyKontakt.cshtml" />
+    <Content Include="Views\CustomerContactPersons\Edit.cshtml" />
+    <Content Include="Views\CustomerToTypes\Create.cshtml" />
+    <Content Include="Views\CustomerToTypes\Delete.cshtml" />
+    <Content Include="Views\CustomerToTypes\Details.cshtml" />
+    <Content Include="Views\CustomerToTypes\Edit.cshtml" />
+    <Content Include="Views\CustomerToTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -569,6 +594,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810171955338_alterd_CustomerClass.resx">
       <DependentUpon>201810171955338_alterd_CustomerClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810221638012_customerToType_list.resx">
+      <DependentUpon>201810221638012_customerToType_list.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810221642417_cupdated_CustomerToType_model.resx">
+      <DependentUpon>201810221642417_cupdated_CustomerToType_model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810221659260_removed_CType_refrence_in_Customer_model.resx">
+      <DependentUpon>201810221659260_removed_CType_refrence_in_Customer_model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810221701403_removed_Customer_refrence_in_CustomerType_model.resx">
+      <DependentUpon>201810221701403_removed_Customer_refrence_in_CustomerType_model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

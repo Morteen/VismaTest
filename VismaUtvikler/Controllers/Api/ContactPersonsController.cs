@@ -46,6 +46,18 @@ namespace VismaUtvikler.Controllers.Api
 
             return dtoContacts;
         }
+        //DELETE /api/ContactPersons/1
+        [HttpDelete]
+        public IHttpActionResult DeleteContactPerson(int Id)
+        {
+            var contactPerson = _context.ContactPersons.Find(Id);
+            if (contactPerson == null)
+                return BadRequest();
+            _context.ContactPersons.Remove(contactPerson);
+            _context.SaveChanges();
+
+            return Ok("Slettet");
+        }
 
     }
 }

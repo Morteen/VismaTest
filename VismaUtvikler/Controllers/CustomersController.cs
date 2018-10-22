@@ -82,7 +82,7 @@ namespace VismaUtvikler.Controllers
             customer.ContactPersons.Add(contactPerson);
             db.Entry(customer).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index","Customers");
+            return RedirectToAction("Details", "Customers", new { id = id });
         }
 
 

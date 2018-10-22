@@ -33,9 +33,10 @@ namespace VismaUtvikler.Models
         public string MailAdress { get; set; }
 
         public virtual List<CustomerContactPerson> ContactPersons { get; set; }
-        public virtual List<CustomerType> CustomerTypes { get; set; }
-        [Display(Name = "Kunde type")]
-        public int CustomerTypeId { get; set; }
+
+        public List<CustomerToType> CustomerToTypes { get; set; }
+
+       
 
     }
 }

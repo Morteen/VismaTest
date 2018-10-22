@@ -8,6 +8,7 @@ namespace VismaUtvikler.Models
 {
     public class CustomerType
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         [Display(Name = "Kunde kategori")]
@@ -15,6 +16,9 @@ namespace VismaUtvikler.Models
         [Display(Name = "Beskrivelse av kundetype")]
         public string Description { get; set; }
 
-        public virtual List<Customer> Customers { get; set; }
+
+
+        public List<CustomerToType> CustomerToTypes { get; set; }
+       
     }
 }
