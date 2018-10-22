@@ -61,6 +61,12 @@
 
     </dl>
 </div >
+<div id="customerType">
+    <h4>Kundetype</h4>
+    <ul id="typeList">
+
+    </ul>
+</div>
 <h4>Kontakt Personer</h4>
 <div id="contactPersonContent">
     <button class="btn"> @Html.ActionLink("Legg til ny Kontakt", "NyKontakt",new {id=Model.Id})</button>
@@ -197,7 +203,40 @@
                     })
 
             });
+            ////KundeType
+            console.log("KundeId=", customerId);
+            $.ajax({
+                url: "/api/CustomerToTypes/"+customerId,
+                method: "GET",
+                dataType: 'json'
 
+            }).done(function (data) {
+               
+                var customerTypeList = data;
+                console.log("customerTypeList ", customerTypeList);
+                if (customerTypeList.length <1) {
+                    $("#customerType").html('');
+                    $("#customerType").append("<div class='alert alert-danger' role='alert'>'<strong>'   Advarsel   '</strong>'      Det er ingen registrerte kundetyper på denne kunden.</div>")
+
+                } else {
+                    console.log(data);
+                    $.map(data, function (post, i) {
+                            //console.log(post)
+                            $("#typeList").append(
+                              
+
+                                "<li>" + post.CustomerTypeName + " </li>"
+                               
+
+                            )
+                        }
+
+                    )
+                }
+            })
+
+
+            ////////
             
 
             

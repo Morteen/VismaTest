@@ -27,3 +27,8 @@ textarea {
 #customerSearchBox{
     float:right;
 }
+#typelist{
+   
+    display:inline;
+    list-style: none;
+}

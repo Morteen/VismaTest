@@ -147,7 +147,8 @@ namespace VismaUtvikler.Dto
         {
             var dtoType = new CustomerTypeDto()
             { CustomerTypeName= customerType.CustomerTypeName,
-                Description= customerType.Description
+                Description= customerType.Description,
+                Id=customerType.Id
             };
             return dtoType;
         }
