@@ -35,7 +35,7 @@ namespace VismaUtvikler.Controllers.Api
         public IEnumerable<CustomerTypeDto> GetCustomerToTypes(int Id)
         {
             List<CustomerType> types = new List<CustomerType>();
-            var customerToType = _context.CustomerToTypes.ToList();
+            var customerToType = _context.CustomerToTypes.Where(c=>c.CustomerId==Id).ToList();
             foreach (var type in customerToType)
             {
                 types.Add(type.CustomerType);
