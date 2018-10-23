@@ -1,95 +1,71 @@
-﻿@model VismaUtvikler.Models.Customer
+﻿@model VismaUtvikler.ViewModels.CustomerViewModel
 
 @{
-    ViewBag.Title = Model.FirmName;
+    ViewBag.Title = Model.Customer.FirmName;
 }
 
-<h3>Firma opplysninger for <br /> @Model.FirmName</h3>
+<h3>Firma opplysninger for <br /> @Model.Customer.FirmName</h3>
 <hr />
 <div>
    
    
    
-    <dl class="dl-horizontal">
+   
        
 
         
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Adress)
-        </dt>
+    <div class="row">
+        <div class="col-lg-3">
+            <label>Adresse</label>
+            @Model.Customer.Adress
+        </div>
+        <div class="col-lg-3">
+            <label>Postnummer</label>
+            @Model.Customer.PostalCode
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Adress)
-        </dd>
+    <div class="row">
+        <div class="col-lg-3">
+            <label>Telefon</label>
+            @Model.Customer.PhoneNumber
+        </div>
+        <div class="col-lg-3">
+            <label>Faxnummer</label>
+            @Model.Customer.FaxNumber
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </dt>
+    <div class="row">
+        <div class="col-lg-3">
+            <label>E-mail</label>
+            @Model.Customer.MailAdress
+        </div>
+        
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.PostalCode)
-        </dd>
+        
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FaxNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FaxNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MailAdress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MailAdress)
-        </dd>
-
-    </dl>
+    
 </div >
 <div id="customerType">
     <h4>Kundetype</h4>
     <ul class="list-inline" id="typeList">
 
     </ul>
+    <div class="form-group" id="Customertypes">
+        <label>Kundetype</label>
+        <select class="form-group" id="NewCustomerType">
+
+        </select>
+    </div>
 </div>
 <h4>Kontakt Personer</h4>
 <div id="contactPersonContent">
-    <button class="btn"> @Html.ActionLink("Legg til ny Kontakt", "NyKontakt",new {id=Model.Id})</button>
+    <button class="btn"> @Html.ActionLink("Legg til ny Kontakt", "NyKontakt",new {id=Model.Customer.Id})</button>
 
   
-
-
-    <form>
-        <label>Fornavn</label>
-        <input type="text" value=""class="form-control"/>
-        <label>Etternavn</label>
-
-        <input type="text" value=""class="form-control"/>
-        <label>Sadresse</label>
-        <input type="text" value=""class="form-control"/>
-        <label>Postnummer</label>
-        <input type="text" value=""class="form-control"/>
-        <label>telefon</label>
-        <input type="text" value=""class="form-control"/>
-        <label>Mai</label>
-        <input type="text" value=""class="form-control"/>
-    </form>
-
-    
-
-
-   
 
 
 
@@ -115,10 +91,10 @@
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Customer.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-<input type="hidden" value=@Model.Id id='customerId'>
+<input type="hidden" value=@Model.Customer.Id id='customerId'>
 
 
 @section scripts{
@@ -145,7 +121,7 @@
             }else{
                     console.log(data);
                     $.map(data, function (post, i) {
-                        console.log(post)
+                      
                         $("#result").append(
                             "<tr class='clickable-row' data-href='#'>" +
 
@@ -191,7 +167,7 @@
                 $("#result").html('');
                 //plasserer verdien i søkefeltet i searchField variablen       
                 var searchField = $("#search").val();
-                console.log(searchField);
+              
                 //lager en regular expressin variable
                 var expression = new RegExp(searchField, "i");
                 console.log(responsedata);
@@ -231,7 +207,7 @@
                 } else {
                     console.log(data);
                     $.map(data, function (post, i) {
-                            //console.log(post)
+                           
                             $("#typeList").append(
                               
 
@@ -244,12 +220,41 @@
                     )
                 }
             })
+            ///Selectlist
+            $.ajax({
+                url: "/api/CustomerTypes",
+                method: "GET",
+                dataType: 'json'
 
+            }).done(function (data) {
+                responsedata = data;
+                console.log("Lengden på response data ",responsedata.length)
+                if (responsedata.length===0) {
 
-            ////////
-            
+                    $("#Customertypes").html('');
+                    $("#Customertypes").append("<div class='alert alert-warning' role='alert'>'<strong>'Advarsel'</strong>' Vi får ikke lastet kundetype data.</div>")
 
-            
+                } else {
+                    console.log(data);
+                    $.map(data, function (post, i) {
+                            
+                            $("#NewCustomerType").append(
+                               
+                                "<option value='post.Id'>"+post.CustomerTypeName+"</option>"
+                                 
+
+                            )
+                        }
+
+                    )
+                }
+            })
+      
+
+            var text = $('#NewCustomerType').find('option:selected').text()
+
+            console.log("logg av text fra dropdoven",text);
+
         });
     </script>
 

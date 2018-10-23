@@ -96,18 +96,24 @@ namespace VismaUtvikler.Controllers
 
         public ActionResult Details(int? id)
         {
+
+             var DetailViewModel= new CustomerViewModel();
+            List<CustomerType>typeList = db.CustomerTypes.ToList(); 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Customer customer = db.Customers.Find(id);
+          
             List <CustomerContactPerson> contactPersons = db.ContactPersons.ToList();
             customer.ContactPersons = contactPersons.Where(i => i.CustomerId == customer.Id).ToList();
             if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            DetailViewModel.Customer = customer;
+            DetailViewModel.CustomerTypes = typeList;
+            return View(DetailViewModel);
         }
 
 
