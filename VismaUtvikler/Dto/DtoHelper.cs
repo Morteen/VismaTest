@@ -169,6 +169,17 @@ namespace VismaUtvikler.Dto
 
             return dtoList;
         }
+        ///////CustomerToTypes
+        public static CustomerToType Map_customerToTypeDto_ToType(CustomerToTypeDto customerToTypeDto)
+        {
+            var customerTotype= new CustomerToType()
+            {
+                CustomerId= customerToTypeDto.CustomerId,
+             CustomerTypeId = customerToTypeDto.CustomerTypeId
+             
+            };
+            return customerTotype;
+        }
 
     }
 }

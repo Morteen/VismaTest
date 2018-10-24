@@ -42,20 +42,22 @@ namespace VismaUtvikler.Controllers.Api
             }
             return DtoHelper.MapTypeListToDtoList(types);
         }
-        //DELETE /api/ContactPersons/1
-        /*[HttpDelete]
-        public IHttpActionResult DeleteContactPerson(int Id)
+
+        //Post /api/customers
+        [HttpPost]
+        public IHttpActionResult CreateCustomerToTypes(CustomerToTypeDto dtoCustomerToType)
         {
-            var contactPerson = _context.ContactPersons.Find(Id);
-            if (contactPerson == null)
+            var customerToType  = new CustomerToType();
+            customerToType.CustomerId = dtoCustomerToType.CustomerId;
+            customerToType.CustomerTypeId = dtoCustomerToType.CustomerTypeId;
+            if (!ModelState.IsValid)
                 return BadRequest();
-            _context.ContactPersons.Remove(contactPerson);
+            _context.CustomerToTypes.Add(customerToType);
             _context.SaveChanges();
 
-            return Ok("Slettet");
+            return
+                Ok("Created success"); // Created(new Uri(Request.RequestUri + "/" + customerToType.Id), dtoCustomerToType);
         }
-
-    }*/
 
 
     }

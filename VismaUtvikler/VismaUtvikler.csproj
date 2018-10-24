@@ -252,6 +252,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dto\ContactPersonDto.cs" />
     <Compile Include="Dto\CustomerDto.cs" />
+    <Compile Include="Dto\CustomerToTypeDto.cs" />
     <Compile Include="Dto\CustomerTypeDto.cs" />
     <Compile Include="Dto\DtoHelper.cs" />
     <Compile Include="Global.asax.cs">

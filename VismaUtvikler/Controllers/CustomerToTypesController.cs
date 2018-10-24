@@ -132,5 +132,46 @@ namespace VismaUtvikler.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+
+
+
+        // POST: CustomerToTypes/AddOne
+       
+        [HttpPost]
+      
+        public JsonResult AddOne(int customerId, int customerTypeId)
+        {
+
+            var newCustomerToType= new CustomerToType()
+            {
+                CustomerId = customerId,
+                CustomerTypeId = customerTypeId
+            };
+           List<CustomerToType> test;
+               test = db.CustomerToTypes.Where(c => c.CustomerId == customerId && c.CustomerTypeId == customerTypeId).ToList();
+            if (test.Count <1) { 
+            if (ModelState.IsValid)
+            {
+                db.CustomerToTypes.Add(newCustomerToType);
+                db.SaveChanges();
+                return Json(new { IsAdded = true, Content = "Kundetype er lagt til i databasen" });
+                }
+
+            else { return Json(new { IsAdded = false, Content = "Modelstat er ikke valid" }); }
+
+
+            }
+            else { return Json(new { IsAdded= false, Content="Denne kundetypen er registrert fra før"}); }
+
+           
+          
+        }
+
+
+
+
     }
 }

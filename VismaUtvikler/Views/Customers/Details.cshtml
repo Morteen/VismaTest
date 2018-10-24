@@ -6,7 +6,7 @@
 
 <h3>Firma opplysninger for <br /> @Model.Customer.FirmName</h3>
 <hr />
-<div>
+<div class="jumbotron">
    
    
    
@@ -56,8 +56,10 @@
     </ul>
     <div class="form-group" id="Customertypes">
         <label>Kundetype</label>
-        <select class="form-group" id="NewCustomerType">
-
+                            
+        <select class="form-group js-dropdown " id="NewCustomerType" >
+            
+            <option hidden>Kundetyper </option>
         </select>
     </div>
 </div>
@@ -100,90 +102,125 @@
 @section scripts{
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var responsedata;
+            var customerTypeList;
 
             var customerId = $('#customerId').val();
-           
 
 
-        $.ajax({
-            url: "/api/ContactPersons/" + customerId,
+            $.ajax({
+                url: "/api/ContactPersons/" + customerId,
                 method: "GET",
                 dataType: 'json'
 
-        }).done(function (data) {
-            responsedata = data;
-            if (responsedata.length ==0) {
-                $("#contactPersonContent").html('');
-                $("#contactPersonContent").append("<div class='alert alert-warning' role='alert'>'<strong>'Advarsel'</strong>' Det er ingen kontaktpersoner registret på denne kunden.</div>")
-                    
-            }else{
+            }).done(function(data) {
+                responsedata = data;
+                if (responsedata.length == 0) {
+                    $("#contactPersonContent").html('');
+                    $("#contactPersonContent")
+                        .append(
+                            "<div class='alert alert-warning' role='alert'>'<strong>'Advarsel'</strong>' Det er ingen kontaktpersoner registret på denne kunden.</div>")
+
+                } else {
                     console.log(data);
-                    $.map(data, function (post, i) {
-                      
-                        $("#result").append(
-                            "<tr class='clickable-row' data-href='#'>" +
+                    $.map(data,
+                        function(post, i) {
 
-                            "<td>" + post.FirstName + " " + post.lastName + "</td>"
-                            + "<td>" + post.Adress + "</td><td>" + post.PostalCode + "</td>" +
-                            "<td>" + post.PhoneNumber + "</td>" +
-                            "<td>" + post.MailAdress + "</td>" +
-                           "<td><a href='/CustomerContactPersons/Edit/" + post.Id + "'> <span class='glyphicon glyphicon-pencil'></span></a><button class='btn-link js-delete' data-customer-id=" + post.Id + ">| <span class='glyphicon glyphicon-trash'></span> </td>" +
-                            " </tr>"
+                            $("#result").append(
+                                "<tr class='clickable-row' data-href='#'>" +
+                                "<td>" +
+                                post.FirstName +
+                                " " +
+                                post.lastName +
+                                "</td>" +
+                                "<td>" +
+                                post.Adress +
+                                "</td><td>" +
+                                post.PostalCode +
+                                "</td>" +
+                                "<td>" +
+                                post.PhoneNumber +
+                                "</td>" +
+                                "<td>" +
+                                post.MailAdress +
+                                "</td>" +
+                                "<td><a href='/CustomerContactPersons/Edit/" +
+                                post.Id +
+                                "'> <span class='glyphicon glyphicon-pencil'></span></a><button class='btn-link js-delete' data-customer-id=" +
+                                post.Id +
+                                ">| <span class='glyphicon glyphicon-trash'></span> </td>" +
+                                " </tr>"
+                            )
+                        }
+                    )
+                }
+            })
 
-                        )
-                    }
-           
-                )
-            }
-                })
 
+            $("#cpPerson").on("click",
+                ".js-delete",
+                function() {
+                    var button = $(this);
+                    //bootbx confirm er et alternativ til vanlig confirmbox
+                    bootbox.confirm("Er du sikker på at du vil slette denne kontaktpersonen?",
+                        function(result) {
+                            if (result) {
 
+                                $.ajax({
+                                    url: "/api/ContactPersons/" + button.attr("data-customer-id"),
+                                    method: "DELETE",
+                                    success: function() {
+                                        console.log("Kontaktpersonen er slettet success!!");
+                                        button.parents("tr").remove();
+                                        responsedata.splice(cp => cp.Id === button.attr("data-customer-id"), 1);
 
-        $("#cpPerson").on("click", ".js-delete", function () {
-                var button = $(this);
-                //bootbx confirm er et alternativ til vanlig confirmbox
-                bootbox.confirm("Er du sikker på at du vil slette denne kontaktpersonen?", function(result) {
-                    if (result) {
+                                    }
+                                })
 
-                        $.ajax({
-                            url: "/api/ContactPersons/" + button.attr("data-customer-id"),
-                            method: "DELETE",
-                            success: function () {
-                                console.log("Kontaktpersonen er slettet success!!");
-                                button.parents("tr").remove();
-                                 responsedata.splice(cp => cp.Id === button.attr("data-customer-id"),1);
-                                
                             }
                         })
 
-                    }
                 })
-
-            })
             $("#search").keyup(function() {
                 //tømmer result tabel for innhold
                 $("#result").html('');
                 //plasserer verdien i søkefeltet i searchField variablen       
                 var searchField = $("#search").val();
-              
+
                 //lager en regular expressin variable
                 var expression = new RegExp(searchField, "i");
                 console.log(responsedata);
 
                 $.each(responsedata,
-                    function (key, value) {
-                        console.log("Logg fra search value",value)
-                        if (value.FirstName.search(expression) != -1 || value.lastName.search(expression) != -1 || value.MailAdress.search(expression) != -1 || value.Adress.search(expression) != -1) {
-                            $("#result").append("<tr><td>" + value.FirstName+" "+value.lastName+ "</td>" +
-                                "<td>" + value.Adress + "</td><td>" + value.PostalCode + "</td>" +
-                                "<td>" + value.PhoneNumber + "</td> " +
-                                "<td>" + value.MailAdress + "</td> <td>" +
-                                "<a href='/CustomerContactPersons/Edit/" + value.Id + "'><span class='glyphicon glyphicon-pencil'></span> " +
-                                "</a><button class='btn-link js-delete' data-customer-id=" + value.Id +
+                    function(key, value) {
+                        console.log("Logg fra search value", value)
+                        if (value.FirstName.search(expression) != -1 ||
+                            value.lastName.search(expression) != -1 ||
+                            value.MailAdress.search(expression) != -1 ||
+                            value.Adress.search(expression) != -1) {
+                            $("#result").append("<tr><td>" +
+                                value.FirstName +
+                                " " +
+                                value.lastName +
+                                "</td>" +
+                                "<td>" +
+                                value.Adress +
+                                "</td><td>" +
+                                value.PostalCode +
+                                "</td>" +
+                                "<td>" +
+                                value.PhoneNumber +
+                                "</td> " +
+                                "<td>" +
+                                value.MailAdress +
+                                "</td> <td>" +
+                                "<a href='/CustomerContactPersons/Edit/" +
+                                value.Id +
+                                "'><span class='glyphicon glyphicon-pencil'></span> " +
+                                "</a><button class='btn-link js-delete' data-customer-id=" +
+                                value.Id +
                                 ">| <span class='glyphicon glyphicon-trash'></span></button>" +
-                              
                                 "</tr>")
                         }
                     })
@@ -192,31 +229,29 @@
             ////KundeType
             console.log("KundeId=", customerId);
             $.ajax({
-                url: "/api/CustomerToTypes/"+customerId,
+                url: "/api/CustomerToTypes/" + customerId,
                 method: "GET",
                 dataType: 'json'
 
-            }).done(function (data) {
-               
-                var customerTypeList = data;
+            }).done(function(data) {
+
+                 customerTypeList = data;
                 console.log("customerTypeList ", customerTypeList);
-                if (customerTypeList.length <1) {
+                if (customerTypeList.length < 1) {
                     $("#customerType").html('');
-                    $("#customerType").append("<div class='alert alert-danger' role='alert'>'<strong>'   Advarsel   '</strong>'      Det er ingen registrerte kundetyper på denne kunden.</div>")
+                    $("#customerType")
+                        .append(
+                            "<div class='alert alert-danger' role='alert'>'<strong>'   Advarsel   '</strong>'      Det er ingen registrerte kundetyper på denne kunden.</div>")
 
                 } else {
                     console.log(data);
-                    $.map(data, function (post, i) {
-                           
+                    $.map(data,
+                        function(post, i) {
+
                             $("#typeList").append(
-                              
-
                                 "<li>" + post.CustomerTypeName + " </li>"
-                               
-
                             )
                         }
-
                     )
                 }
             })
@@ -226,34 +261,97 @@
                 method: "GET",
                 dataType: 'json'
 
-            }).done(function (data) {
+            }).done(function(data) {
                 responsedata = data;
-                console.log("Lengden på response data ",responsedata.length)
-                if (responsedata.length===0) {
+                console.log("Lengden på response data ", responsedata.length)
+                if (responsedata.length === 0) {
 
                     $("#Customertypes").html('');
-                    $("#Customertypes").append("<div class='alert alert-warning' role='alert'>'<strong>'Advarsel'</strong>' Vi får ikke lastet kundetype data.</div>")
+                    $("#Customertypes")
+                        .append(
+                            "<div class='alert alert-warning' role='alert'>'<strong>'Advarsel'</strong>' Vi får ikke lastet kundetype data.</div>")
 
                 } else {
                     console.log(data);
-                    $.map(data, function (post, i) {
-                            
-                            $("#NewCustomerType").append(
-                               
-                                "<option value='post.Id'>"+post.CustomerTypeName+"</option>"
-                                 
+                    $.map(data,
+                        function(post, i) {
 
+                            $("#NewCustomerType").append(
+                                "<option value=" + post.Id + ">" + post.CustomerTypeName + "</option>"
                             )
                         }
-
                     )
                 }
             })
-      
 
-            var text = $('#NewCustomerType').find('option:selected').text()
+            ///Legg til ny kundetype
 
-            console.log("logg av text fra dropdoven",text);
+
+            $("#NewCustomerType").change(function() {
+                var value = $("#NewCustomerType").val();
+               
+               
+               
+               ///legger til i databsaen
+                $.ajax({
+                    type: "POST",
+                    url: "/CustomerToTypes/AddOne",
+                    data: { CustomerId: customerId, CustomerTypeId: value },
+                    dataType:"json",
+                    success: function(result) {
+
+                        if (result.IsAdded) {
+                          
+                            addToList()
+                        } else {
+                            bootbox.alert("Denne kundetypen er allerede registret for denne kunden!");
+                            
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Her er noe galt ", xhr,status)
+                    }
+
+                })
+
+                ///Legger til den ny på lista
+
+
+
+
+
+
+
+
+
+
+                function addToList(){ 
+                    
+                    $.ajax({
+                        url: "/api/CustomerTypes/" + value,
+                        method: "GET",
+                        dataType: 'json'
+
+                    }).done(function(data) {
+                        var customerType = data;
+                      
+                        if (customerType.length === 0) {
+
+                            alert("Her er det noe galt");
+
+                        } else {
+                            alert("Det virker nå også")
+
+                            $("#typeList").append("<li> " + data.CustomerTypeName + "</li>")
+
+
+                        }
+                    })
+                }
+
+////////////////////
+            });
+
 
         });
     </script>
