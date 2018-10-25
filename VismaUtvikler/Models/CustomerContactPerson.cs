@@ -20,15 +20,15 @@ namespace VismaUtvikler.Models
         [Display(Name = "Adresse")]
         public string Adress { get; set; }
         [DataType(DataType.PostalCode)]
-        [Display(Name = "Post Nummer")]
+        [Display(Name = "Postnummer")]
         public int PostalCode { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]
-        [Display(Name = "Telefon nummer")]
+        [Display(Name = "Telefonnummer")]
         public string PhoneNumber { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "Mail")]
+        [Display(Name = "E-Mail")]
         public string MailAdress { get; set; }
 
         // Fremmednøkler

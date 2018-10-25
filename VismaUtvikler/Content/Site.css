@@ -32,3 +32,21 @@ textarea {
     display:inline;
     list-style: none;
 }
+#Customertypes {
+    border:blue,solid;
+    border-radius:20px;
+   
+}
+#customerType{
+    margin-bottom: 50px
+}
+#selectDiv{
+    float:right;
+  
+   padding-right: 20px;
+  
+}
+#contactPersonWaring{
+margin:0px;
+clear:both;
+}

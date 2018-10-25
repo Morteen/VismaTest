@@ -9,36 +9,172 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Visma test", "Index", "Customers", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse"style="float: right">
+            <ul class="nav navbar-nav">
+                <li>    <div id="customerSearchBox"class="form-group" style="margin-top:15px">
+                    <input type="text" name="search" id="search"class = "form-control"placeholder="Søk"/>
+                </div></li>
+                <li>@Html.ActionLink("Legg til Kundetype", "Create", "CustomerTypes")</li>
+            </ul>
+              
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Visma Test</p>
-        </footer>
+</div>
+<div class="container body-content">
+    <div id="mainResult">
+        <table id="mainResult">
+            
+        </table>
     </div>
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Visma Test</p>
+    </footer>
+</div>
+    
+
+
+
+
+
 
   
-    @Scripts.Render("~/bundles/lib")
-    @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/lib")
+@RenderSection("scripts", required: false)
+
+
 </body>
+
+
+
+
+
+
+
+
+
+
 </html>
+@section scripts{
+    <script>
+    $(document).ready(function() {
+         $.ajax({
+             url: "/api/customers",
+             method: "GET",
+             dataType: 'json'
+
+         }).done(function(data) {
+             cutomersdata = data;
+             console.log(data);
+             
+         })
+        $.ajax({
+            url: "/api/CustomerTypes",
+            method: "GET",
+            dataType: 'json'
+
+        }).done(function (data) {
+            typeData = data;
+            console.log(data);
+
+        })
+        $.ajax({
+            url: "/api/ContactPersons/",
+            method: "GET",
+            dataType: 'json'
+
+        }).done(function (data) {
+            contactPersonData = data;
+            console.log(data);
+
+        })
+
+        var appData= {
+            customers: cutomersdata,
+            types: typeData,
+            ontactPersons: contactPersonData  //navSearch
+        }
+         
+      
+            
+           console.log("Log av appData",appData)
+
+           $("#navSearch").keyup(function () {
+            //tømmer result tabel for innhold
+            $("#result").html('');
+            //plasserer verdien i søkefeltet i searchField variablen
+            var searchField = $("#search").val();
+
+            //lager en regular expressin variable
+            var expression = new RegExp(searchField, "i");
+            console.log(responsedata);
+
+            $.each(appData.contactPersons,
+                function (key, value) {
+                    console.log("Logg fra search value", value)
+                    if (value.FirstName.search(expression) != -1 ||
+                        value.lastName.search(expression) != -1 ||
+                        value.MailAdress.search(expression) != -1 ||
+                        value.Adress.search(expression) != -1) {
+                        $("#result").append("<tr><td>" +
+                            value.FirstName +
+                            " " +
+                            value.lastName +
+                            "</td>" +
+                            "<td>" +
+                            value.Adress +
+                            "</td><td>" +
+                            value.PostalCode +
+                            "</td>" +
+                            "<td>" +
+                            value.PhoneNumber +
+                            "</td> " +
+                            "<td>" +
+                            value.MailAdress +
+                            "</td> <td>" +
+                            "<a href='/CustomerContactPersons/Edit/" +
+                            value.Id +
+                            "'><span class='glyphicon glyphicon-pencil'></span> " +
+                            "</a><button class='btn-link js-delete' data-customer-id=" +
+                            value.Id +
+                            ">| <span class='glyphicon glyphicon-trash'></span></button>" +
+                            "</tr>")
+                    }
+                })
+            $.each(appData.customers,
+                function (key, value) {
+                    console.log("Logg fra search value", value)
+                    if (value.FirmName.search(expression) != -1 || value.Adress.search(expression) != -1 || value.MailAdress.search(expression) != -1) {
+                        $("#result").append("<tr><td>" + value.FirmName + "</td>" +
+                            "<td>" + value.Adress + "</td><td>" + value.PostalCode + "</td>" +
+                            "<td>" + value.PhoneNumber + "</td><td>" + value.FaxNumber + "</td>" +
+                            "<td>" + value.MailAdress + "</td> <td>" +
+                            "<a href='/customers/Edit/" + value.Id + "'><span class='glyphicon glyphicon-pencil'></span> " +
+                            "|</a><button class='btn-link js-delete' data-customer-id=" + value.Id +
+                            ">| <span class='glyphicon glyphicon-trash'></span>  |</button>" +
+                            "<a href='/customers/Details/" + value.Id + "'>Details " +
+                            "</tr>")
+                    }
+                })
+
+        });
+
+
+                     
+    
+                    
+            
+        })
+    </script>
+}

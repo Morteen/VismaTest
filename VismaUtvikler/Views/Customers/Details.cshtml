@@ -7,94 +7,117 @@
 <h3>Firma opplysninger for <br /> @Model.Customer.FirmName</h3>
 <hr />
 <div class="jumbotron">
-   
-   
-   
-   
-       
 
-        
+
 
     <div class="row">
         <div class="col-lg-3">
-            <label>Adresse</label>
+            <label>Adresse</label><br/>
             @Model.Customer.Adress
         </div>
         <div class="col-lg-3">
-            <label>Postnummer</label>
+            <label>Postnummer</label><br/>
             @Model.Customer.PostalCode
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-3">
-            <label>Telefon</label>
+            <label>Telefon</label><br/>
             @Model.Customer.PhoneNumber
         </div>
         <div class="col-lg-3">
-            <label>Faxnummer</label>
+            <label>Faxnummer</label><br />
             @Model.Customer.FaxNumber
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-3">
-            <label>E-mail</label>
+            <label>E-mail</label><br/>
             @Model.Customer.MailAdress
         </div>
-        
+
     </div>
 
-        
 
-    
-</div >
-<div id="customerType">
-    <h4>Kundetype</h4>
-    <ul class="list-inline" id="typeList">
 
-    </ul>
-    <div class="form-group" id="Customertypes">
-        <label>Kundetype</label>
-                            
-        <select class="form-group js-dropdown " id="NewCustomerType" >
-            
-            <option hidden>Kundetyper </option>
-        </select>
-    </div>
+
 </div>
-<h4>Kontakt Personer</h4>
-<div id="contactPersonContent">
-    <button class="btn"> @Html.ActionLink("Legg til ny Kontakt", "NyKontakt",new {id=Model.Customer.Id})</button>
+<hr/>
+<div id="customerType">
+   
+    <div class="row">
+        <div class="col-md-6">
+            <h4 id="kundetypeOversikt">Kundetype oversikt</h4><br/>
+        </div>
+        <div id="selectDiv">
+            <div class="col-md-6" >
+                <label>Legg til Kundetype</label><br/>
+                <div class="form-group" id="Customertypes">
 
+                    <select id="NewCustomerType">
+
+                        <option hidden>Kundetyper </option>
+                    </select>
+                </div>
+            </div>
+        </div><br/>
+
+    </div>
+    <div id="displayTypes">  </div>
+    <table id="typeList" class="table table-sm" >
+        <thead>
+        <tr>
+            <th>Kundetype</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Slett</th>
+        </tr>
+        <tbody id="typeResult">
+           
+
+        </tbody>
+
+    </table>
   
 
+</div>
+
+<hr/>
+<h4>Kontakt Personer</h4>
+<div id="contactPersonContent">
+    <button class="btn"> @Html.ActionLink("Legg til ny Kontakt", "NyKontakt", new { id = Model.Customer.Id })</button>
 
 
 
-    <div id="customerSearchBox" class="form-group" style="float:right">
-        <input type="text" name="search" id="search" class="form-control" placeholder="Søk"/>
-    </div>
+
+    <div id="contactPersonWaring"></div>
+
+    
 
     <table class="table table-sm" id="cpPerson">
         <thead>
-        <tr>
-            <th>Navn</th>
-            <th>Adresse</th>
-            <th>Postnummer</th>
-            <th>telefon</th>
+            <tr>
+                <th>Navn</th>
+                <th>Adresse</th>
+                <th>Postnummer</th>
+                <th>telefon</th>
 
-            <th>Mail adresse</th>
-        </tr>
+                <th>Mail adresse</th>
+            </tr>
         </thead>
         <tbody id="result"></tbody>
+        
     </table>
 
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Customer.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Endre Kunde verdier", "Edit", new { id = Model.Customer.Id }) |
+    @Html.ActionLink("Tilbake til kundelisten", "Index")
 </p>
 <input type="hidden" value=@Model.Customer.Id id='customerId'>
 
@@ -117,13 +140,14 @@
             }).done(function(data) {
                 responsedata = data;
                 if (responsedata.length == 0) {
-                    $("#contactPersonContent").html('');
-                    $("#contactPersonContent")
+                 
+                    $("#contactPersonWaring")
                         .append(
                             "<div class='alert alert-warning' role='alert'>'<strong>'Advarsel'</strong>' Det er ingen kontaktpersoner registret på denne kunden.</div>")
 
                 } else {
                     console.log(data);
+                    $("#contactPersonWaring").html('');
                     $.map(data,
                         function(post, i) {
 
@@ -173,7 +197,8 @@
                                     success: function() {
                                         console.log("Kontaktpersonen er slettet success!!");
                                         button.parents("tr").remove();
-                                        responsedata.splice(cp => cp.Id === button.attr("data-customer-id"), 1);
+                                        var index=responsedata.Id.indexOf( button.attr("data-customer-id"))
+                                        responsedata.Splice(index, 1);
 
                                     }
                                 })
@@ -185,7 +210,7 @@
             $("#search").keyup(function() {
                 //tømmer result tabel for innhold
                 $("#result").html('');
-                //plasserer verdien i søkefeltet i searchField variablen       
+                //plasserer verdien i søkefeltet i searchField variablen
                 var searchField = $("#search").val();
 
                 //lager en regular expressin variable
@@ -235,11 +260,11 @@
 
             }).done(function(data) {
 
-                 customerTypeList = data;
+                customerTypeList = data;
                 console.log("customerTypeList ", customerTypeList);
                 if (customerTypeList.length < 1) {
-                    $("#customerType").html('');
-                    $("#customerType")
+                    $("#displayTypes").html('');
+                    $("#displayTypes")
                         .append(
                             "<div class='alert alert-danger' role='alert'>'<strong>'   Advarsel   '</strong>'      Det er ingen registrerte kundetyper på denne kunden.</div>")
 
@@ -247,10 +272,17 @@
                     console.log(data);
                     $.map(data,
                         function(post, i) {
-
+                            $("#displayTypes").html('');
                             $("#typeList").append(
-                                "<li>" + post.CustomerTypeName + " </li>"
+                                "<tr><td>" +
+                                post.CustomerTypeName +
+                                " </td><td></td><td></td><td></td> <td></td><td>" +
+                                "</a><button class='btn-link js-Slett' data-customer-id=" +
+                                post.Id +
+                                "> <span class='glyphicon glyphicon-trash'></span></button></td>" +
+                                "</tr> "
                             )
+
                         }
                     )
                 }
@@ -279,6 +311,7 @@
                             $("#NewCustomerType").append(
                                 "<option value=" + post.Id + ">" + post.CustomerTypeName + "</option>"
                             )
+
                         }
                     )
                 }
@@ -289,44 +322,69 @@
 
             $("#NewCustomerType").change(function() {
                 var value = $("#NewCustomerType").val();
-               
-               
-               
-               ///legger til i databsaen
+
+
+                ///legger til i databsaen
                 $.ajax({
                     type: "POST",
                     url: "/CustomerToTypes/AddOne",
                     data: { CustomerId: customerId, CustomerTypeId: value },
-                    dataType:"json",
+                    dataType: "json",
                     success: function(result) {
 
                         if (result.IsAdded) {
-                          
-                            addToList()
+
+                            addToList();
+                            toastr.success("Kundetypen er lagt til kunden ")
+                            $("#displayTypes").html('');
                         } else {
                             bootbox.alert("Denne kundetypen er allerede registret for denne kunden!");
-                            
+
                         }
                     },
                     error: function(xhr, status, error) {
-                        alert("Her er noe galt ", xhr,status)
+                        alert("Her er noe galt ", xhr, status)
                     }
 
                 })
 
+
+                //Sletter en av listen
+
+                $("#typeList").on("click",
+                    ".js-Slett",
+                    function() {
+                        var button = $(this);
+                        alert("Noe skjer");
+                        //bootbx confirm er et alternativ til vanlig confirmbox
+                       /* bootbox.confirm("Er du sikker på at du vil slette denne Kundetypen fra kunden?",
+                            function(result) {
+                                if (result) {
+
+                                    $.ajax({
+                                        url: "api/CustomerToTypes/" + button.attr("data-customer-id"),
+                                        method: "DELETE",
+                                        success: function() {
+                                           toastr.succes("Kundetypen er slettet er slettet !!");
+                                            button.parents("tr").remove();
+                                           
+
+                                        }
+                                    })
+
+                                }
+                            })*/
+
+                    })
+
+               
+
+
                 ///Legger til den ny på lista
 
 
+                function addToList() {
 
-
-
-
-
-
-
-
-                function addToList(){ 
-                    
                     $.ajax({
                         url: "/api/CustomerTypes/" + value,
                         method: "GET",
@@ -334,22 +392,26 @@
 
                     }).done(function(data) {
                         var customerType = data;
-                      
+
                         if (customerType.length === 0) {
 
                             alert("Her er det noe galt");
 
                         } else {
-                            alert("Det virker nå også")
 
-                            $("#typeList").append("<li> " + data.CustomerTypeName + "</li>")
+
+                            $("#typeList").append("<tr><td>" + data.CustomerTypeName + " </td><td></td><td></td><td></td><td></td><td></td>" +
+                                "</a><button class='btn-link js-Slett' data-customer-id=" +
+                                post.Id +
+                                "> <span class='glyphicon glyphicon-trash'></span></button></td>" +
+                                "</tr>")
 
 
                         }
                     })
                 }
 
-////////////////////
+                ////////////////////
             });
 
 

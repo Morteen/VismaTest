@@ -43,7 +43,7 @@ namespace VismaUtvikler.Controllers.Api
             return DtoHelper.MapTypeListToDtoList(types);
         }
 
-        //Post /api/customers
+        //Post /api/
         [HttpPost]
         public IHttpActionResult CreateCustomerToTypes(CustomerToTypeDto dtoCustomerToType)
         {
@@ -57,6 +57,20 @@ namespace VismaUtvikler.Controllers.Api
 
             return
                 Ok("Created success"); // Created(new Uri(Request.RequestUri + "/" + customerToType.Id), dtoCustomerToType);
+        }
+
+
+        //DELETE /api/CustomerToTypes/1
+        [HttpDelete]
+        public IHttpActionResult DeleteCustomerToType(int Id)
+        {
+            var customerToType = _context.CustomerToTypes.Find(Id);
+            if (customerToType == null)
+                return BadRequest();
+            _context.CustomerToTypes.Remove(customerToType);
+            _context.SaveChanges();
+
+            return Ok("Slettet");
         }
 
 

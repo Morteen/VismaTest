@@ -1,9 +1,9 @@
 ﻿@model VismaUtvikler.ViewModels.CustomerViewModel
 @{
-    ViewBag.Title = "NyKontakt";
+    ViewBag.Title = "Legg til en ny kontaktperson";
 }
 
-<h2>NyKontakt</h2>
+<h3>Legg til en ny kontaktperson for @Model.Customer.FirmName</h3>
 
 @using (Html.BeginForm("NyKontakt","Customers"))
 {

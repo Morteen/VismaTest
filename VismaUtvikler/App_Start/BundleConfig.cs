@@ -15,6 +15,7 @@ namespace VismaUtvikler
                 "~/Scripts/respond.js",
                         "~/scripts/datatables/jquery.datatables.js",
                         "~/scripts/datatables/datatables.bootstrap.js",
+                        "~/scripts/toastr.js",
                         "~/scripts/typeahead.bundle.js"
 
 
@@ -34,6 +35,7 @@ namespace VismaUtvikler
                       "~/Content/bootstrap-journal.css",
                       "~/content/datatables/css/datatables.bootstrap.css",
                       "~/content/typeahead.css",
+                      "~/content/toastr.css",
                       "~/Content/site.css"));
         }
     }
