@@ -50,3 +50,10 @@ textarea {
 margin:0px;
 clear:both;
 }
+#detailHeading{
+    margin:auto;
+    margin-top:5px;
+    margin-bottom: 30px;
+    font-size:200%
+    
+}
