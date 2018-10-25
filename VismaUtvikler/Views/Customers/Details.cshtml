@@ -4,7 +4,7 @@
     ViewBag.Title = Model.Customer.FirmName;
 }
 
-<h3>Firma opplysninger for <br /> @Model.Customer.FirmName</h3>
+<h3 class="display-1">Firma opplysninger for <br /> @Model.Customer.FirmName</h3>
 <hr />
 <div class="jumbotron">
 
@@ -12,30 +12,30 @@
 
     <div class="row">
         <div class="col-lg-3">
-            <label>Adresse</label><br/>
-            @Model.Customer.Adress
+            <label>Adresse</label>
+            <p class="lead">   @Model.Customer.Adress </p>
         </div>
         <div class="col-lg-3">
-            <label>Postnummer</label><br/>
-            @Model.Customer.PostalCode
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-3">
-            <label>Telefon</label><br/>
-            @Model.Customer.PhoneNumber
-        </div>
-        <div class="col-lg-3">
-            <label>Faxnummer</label><br />
-            @Model.Customer.FaxNumber
+            <label>Postnummer</label>
+            <p class="lead">  @Model.Customer.PostalCode </p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-3">
-            <label>E-mail</label><br/>
-            @Model.Customer.MailAdress
+            <label>Telefon</label>
+            <p class="lead"> @Model.Customer.PhoneNumber</p>
+        </div>
+        <div class="col-lg-3">
+            <label>Faxnummer</label>
+            <p class="lead">  @Model.Customer.FaxNumber </p>
+</div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <label>E-mail</label>
+            <p class="lead">   @Model.Customer.MailAdress</p>
         </div>
 
     </div>
@@ -273,16 +273,10 @@
                     $.map(data,
                         function(post, i) {
                             $("#displayTypes").html('');
-                            $("#typeList").append(
-                                "<tr><td>" +
-                                post.CustomerTypeName +
-                                " </td><td></td><td></td><td></td> <td></td><td>" +
-                                "</a><button class='btn-link js-Slett' data-customer-id=" +
-                                post.Id +
-                                "> <span class='glyphicon glyphicon-trash'></span></button></td>" +
-                                "</tr> "
-                            )
-
+                           
+                            $("#typeList").append("<tr><td>" + post.CustomerTypeName + " </td><td></td><td></td><td></td><td></td><td><button class='btn btn-link js-Slett' data-customer-id="+post.Id+"><span class='glyphicon glyphicon-trash'></span></button></td>" +
+                                "</tr>"
+                                )
                         }
                     )
                 }
@@ -355,9 +349,9 @@
                     ".js-Slett",
                     function() {
                         var button = $(this);
-                        alert("Noe skjer");
+                      
                         //bootbx confirm er et alternativ til vanlig confirmbox
-                       /* bootbox.confirm("Er du sikker på at du vil slette denne Kundetypen fra kunden?",
+                        bootbox.confirm("Er du sikker på at du vil slette denne Kundetypen fra kunden?",
                             function(result) {
                                 if (result) {
 
@@ -369,11 +363,13 @@
                                             button.parents("tr").remove();
                                            
 
+                                        },error:function() {
+                                            bootbox.alert("En feil har oppstått Prøv igjen senere, ")
                                         }
                                     })
 
                                 }
-                            })*/
+                            })
 
                     })
 
@@ -384,6 +380,7 @@
 
 
                 function addToList() {
+                    
 
                     $.ajax({
                         url: "/api/CustomerTypes/" + value,
@@ -395,15 +392,12 @@
 
                         if (customerType.length === 0) {
 
-                            alert("Her er det noe galt");
+                            bootbox.alert("Vi får ikke lastet opp data ")
 
                         } else {
+                          
 
-
-                            $("#typeList").append("<tr><td>" + data.CustomerTypeName + " </td><td></td><td></td><td></td><td></td><td></td>" +
-                                "</a><button class='btn-link js-Slett' data-customer-id=" +
-                                post.Id +
-                                "> <span class='glyphicon glyphicon-trash'></span></button></td>" +
+                            $("#typeList").append("<tr><td>" + data.CustomerTypeName + " </td><td></td><td></td><td></td><td></td><td><button class='btn btn-link js-Slett' data-customer-id="+data.Id+"><span class='glyphicon glyphicon-trash'></span></button></td>" +
                                 "</tr>")
 
 
@@ -411,7 +405,7 @@
                     })
                 }
 
-                ////////////////////
+                ////////////////////<td></td><td></td><td></td><td></td><td></td></a><button class='btn-link js-Slett' data-customer-id=" +post.Id +"> <span class='glyphicon glyphicon-trash'></span></button></td>"
             });
 
 
