@@ -21,10 +21,24 @@
         </div>
         <div class="navbar-collapse collapse"style="float: right">
             <ul class="nav navbar-nav">
-                <li>    <div id="customerSearchBox"class="form-group" style="margin-top:15px">
-                    <input type="text" name="search" id="search"class = "form-control"placeholder="Søk"/>
-                </div></li>
-                <li>@Html.ActionLink("Legg til Kundetype", "Create", "CustomerTypes")</li>
+                <li>
+                    <div id="customerSearchBox" class="form-group" style="margin-top:15px">
+                        <input type="text" name="search" id="search" class="form-control" placeholder="Søk" />
+                    </div>
+                </li>
+
+                <li>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top:15px;margin-left:20px">
+                           Kundetyper
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/CustomerTypes/Create">Legg til Kundetype</a><br/>
+                            <a class="dropdown-item" href="/CustomerToTypes">Kunde til type</a>
+
+                        </div>
+                    </div>
+                </li>
             </ul>
               
         </div>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using VismaUtvikler.Dto;
 using VismaUtvikler.Models;
 
 namespace VismaUtvikler.Controllers
@@ -20,6 +21,10 @@ namespace VismaUtvikler.Controllers
             var customerToTypes = db.CustomerToTypes.Include(c => c.Customer).Include(c => c.CustomerType);
             return View(customerToTypes.ToList());
         }
+
+
+
+
 
         // GET: CustomerToTypes/Details/5
         public ActionResult Details(int? id)

@@ -181,5 +181,32 @@ namespace VismaUtvikler.Dto
             return customerTotype;
         }
 
+        ///prøver igjen fra customerToType til dto
+
+        public static CustomerToTypeDto MapOne(CustomerToType customerToType)
+        {
+
+            var temp = new CustomerToTypeDto()
+            {
+                CustomerTypeId = customerToType.CustomerTypeId,
+                CustomerId = customerToType.CustomerId
+            };
+            return temp;
+
+        }
+
+
+        public static List<CustomerToTypeDto> MapList(List<CustomerToType> customerToType)
+        {
+            List<CustomerToTypeDto> tempList = new List<CustomerToTypeDto>();
+            foreach (var type in customerToType)
+            {
+                tempList.Add(MapOne(type));
+                
+            }
+
+            return tempList;
+        }
+
     }
 }

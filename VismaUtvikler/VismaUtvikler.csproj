@@ -245,6 +245,7 @@
     <Compile Include="Controllers\Api\CustomersController.cs" />
     <Compile Include="Controllers\Api\CustomerToTypesController.cs" />
     <Compile Include="Controllers\Api\CustomerTypesController.cs" />
+    <Compile Include="Controllers\Api\testController.cs" />
     <Compile Include="Controllers\CustomerContactPersonsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\CustomerToTypesController.cs" />
