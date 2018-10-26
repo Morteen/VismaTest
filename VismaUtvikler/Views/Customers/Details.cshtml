@@ -207,12 +207,12 @@
                         })
 
                 })
-            $("#search").keyup(function() {
+            $("#search").keyup(function () {
                 //tømmer result tabel for innhold
                 $("#result").html('');
                 //plasserer verdien i søkefeltet i searchField variablen
                 var searchField = $("#search").val();
-
+                console.log("Søkefelt verdi:",searchField)
                 //lager en regular expressin variable
                 var expression = new RegExp(searchField, "i");
                 console.log(responsedata);

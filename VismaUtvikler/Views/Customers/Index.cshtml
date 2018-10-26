@@ -59,14 +59,14 @@
                        
                             "<td>" + post.FirmName + "</td>"
                             + "<td>" + post.Adress + "</td><td>" + post.PostalCode + "</td><td>" + post.PhoneNumber + "</td><td>" + post.FaxNumber + "</td><td>" + post.MailAdress + "</td>" +
-                           "<td><a href='/customers/Edit/" + post.Id + "'> <span class='glyphicon glyphicon-pencil'></span></a><button class='btn-link js-delete' data-customer-id=" + post.Id + ">   | <span class='glyphicon glyphicon-trash'></span>|</button><a href='/customers/Details/" + post.Id + "'>  Detaljer </a></button> </td>" +
+                           "<td><a href='/customers/Edit/" + post.Id + "'> <span class='glyphicon glyphicon-pencil'></span></a><button class='btn-link js-delete' data-customer-id=" + post.Id + "><span class='glyphicon glyphicon-trash'></span>|</button><a href='/customers/Details/" + post.Id + "'>  Detaljer </a></button> </td>" +
                             " </tr>" 
                       
                         )
                   })
                 })
 
-         
+      
         
             $("#customers").on("click",".js-delete",function () {
                 var button = $(this);
@@ -96,7 +96,7 @@
                 //lager en regular expressin variable
                 var expression = new RegExp(searchField, "i");
                 console.log(responsedata);
-            
+                $("#result").html('');
                 $.each(responsedata,
                     function (key, value) {
                         console.log("Logg fra search value",value)
