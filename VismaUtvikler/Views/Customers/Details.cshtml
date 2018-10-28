@@ -56,7 +56,7 @@
                 <label>Legg til Kundetype</label><br/>
                 <div class="form-group" id="Customertypes">
 
-                    <select id="NewCustomerType">
+                    <select id="NewCustomerType"  style="border-radius: 20px;height: 30px;width:120px">
 
                         <option hidden>Kundetyper </option>
                     </select>
@@ -274,9 +274,9 @@
                         function(post, i) {
                             $("#displayTypes").html('');
                            
-                            $("#typeList").append("<tr><td>" + post.CustomerTypeName + " </td><td></td><td></td><td></td><td></td><td><button class='btn btn-link js-Slett' data-customer-id="+post.Id+"><span class='glyphicon glyphicon-trash'></span></button></td>" +
-                                "</tr>"
-                                )
+
+                            $("#typeList").append("<tr><td>" + post.CustomerTypeName + " </td><td></td><td></td><td></td><td></td><td><button class='btn btn-link js-Slett' data-customer-id=" + post.Id + "><span class='glyphicon glyphicon-trash'></span></button></td>" +
+                                "</tr>")
                         }
                     )
                 }
@@ -356,16 +356,30 @@
                                 if (result) {
 
                                     $.ajax({
-                                        url: "api/CustomerToTypes/" + button.attr("data-customer-id"),
-                                        method: "DELETE",
-                                        success: function() {
-                                           toastr.succes("Kundetypen er slettet er slettet !!");
-                                            button.parents("tr").remove();
-                                           
+                                        type: "DELETE",
+                                        url: "/CustomerToTypes/DelOne",
+                                        data:{ customerId: customerId, customerTypeId: button.attr("data-customer-id") },
+                                        success: function (result) {
+                                        
+                                            console.log(result)
+                                            if (result.IsDeleted) {
+                                                 
+                                                toastr.success(result.Content)
+                                                 button.parents("tr").remove();
+                                               
+                                              
+                                            } else {
+                                                bootbox.alert(result.Content)
 
-                                        },error:function() {
-                                            bootbox.alert("En feil har oppstått Prøv igjen senere, ")
+                                            }
+                                        },
+                                        error: function (xhr, status, error) {
+                                            alert("Her er noe galt ", xhr, status)
                                         }
+
+
+                                        
+                                      
                                     })
 
                                 }

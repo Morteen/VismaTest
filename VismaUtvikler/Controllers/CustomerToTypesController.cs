@@ -176,6 +176,42 @@ namespace VismaUtvikler.Controllers
         }
 
 
+        // DELETE: CustomerToTypes/DelOne
+
+        [HttpDelete]
+
+        public JsonResult DelOne(int customerId, int customerTypeId)
+        {
+
+           
+            List<CustomerToType> inDb;
+            inDb = db.CustomerToTypes.Where(c => c.CustomerId == customerId && c.CustomerTypeId == customerTypeId).ToList();
+            
+                if (ModelState.IsValid)
+                {
+                    foreach (var type in inDb)
+                    { 
+                        db.CustomerToTypes.Remove(type);
+                     }
+                   
+                    db.SaveChanges();
+                    return Json(new { IsDeleted = true, Content = "Kundetype er Slettet i databasen" });
+                }
+
+                else
+                {
+                    return Json(new { IsDeleted = false, Content = "Modelstat er ikke valid" });
+                }
+
+
+            
+           
+
+
+
+        }
+
+
 
 
     }

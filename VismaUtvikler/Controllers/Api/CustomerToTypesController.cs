@@ -62,12 +62,20 @@ namespace VismaUtvikler.Controllers.Api
 
         //DELETE /api/CustomerToTypes/1
         [HttpDelete]
-        public IHttpActionResult DeleteCustomerToType(int Id)
+        public IHttpActionResult DeleteCustomerToType(int customerId,int customerTypeId)
         {
-            var customerToType = _context.CustomerToTypes.Find(Id);
-            if (customerToType == null)
-                return BadRequest();
-            _context.CustomerToTypes.Remove(customerToType);
+            var customerToTypeInDb = _context.CustomerToTypes.Where(c=>c.CustomerTypeId==customerTypeId && c.CustomerId==customerId);//
+            
+            if (customerToTypeInDb == null)
+                return BadRequest("Vi kommer hit ihvertfall");
+              
+
+            //Det skal ikke være mer en enn men dette ble løsningen
+            foreach (var t in customerToTypeInDb)
+            {
+                _context.CustomerToTypes.Remove(t);
+            }
+           
             _context.SaveChanges();
 
             return Ok("Slettet");
